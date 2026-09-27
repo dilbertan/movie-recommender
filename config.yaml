@@ -1,0 +1,78 @@
+# ==============================================================================
+# Semantic Movie Recommendation System - Configuration File
+# ==============================================================================
+
+# Recommendation and Output Settings
+# ----------------------------------
+# Default number of similar movies to return
+top_k: 3
+
+# Movies with similarity score below this threshold (0.0 - 1.0) will not be returned
+min_similarity: 0.0
+
+# Similarity score display mode:
+# - raw_cosine: Converts cosine similarity directly to 0-100% range (Default)
+# - minmax: Relative min-max normalization across candidate results
+score_display: "raw_cosine"
+
+# Model and Hardware Settings
+# ---------------------------
+# Sentence-Transformers embedding model.
+# BAAI/bge-m3: Multilingual (Turkish & English), high semantic performance (Default)
+# Lightweight alternative: "sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2"
+model_name: "BAAI/bge-m3"
+
+# Runtime device:
+# - auto: Automatically uses GPU (CUDA) if available, falls back to CPU if memory is insufficient
+# - cuda: Force GPU only
+# - cpu: Force CPU only
+device: "auto"
+
+# Number of movie overviews processed simultaneously during embedding creation (adjust for VRAM limits)
+batch_size: 16
+
+# Maximum sequence / token length fed into the model
+max_seq_length: 512
+
+# Dataset Settings
+# ----------------
+dataset:
+  # Hugging Face open dataset repository
+  name: "jason1966/ahsanaseer_top-rated-tmdb-movies-10k"
+  
+  # Maximum number of movies to sample (10,000)
+  max_films: 10000
+  
+  # Filter out movies released before this year
+  min_year: 1900
+  
+  # Maximum word count per movie overview (longer overviews are truncated)
+  max_words: 300
+  
+  # Random seed for reproducible sampling
+  random_seed: 42
+
+# UI Filter Defaults
+# ------------------
+filters:
+  default_min_year: 1950
+  default_max_year: 2026
+
+# Hybrid Search Settings (Embedding + TF-IDF)
+# -------------------------------------------
+hybrid:
+  # Enable hybrid search (default: false)
+  enabled: false
+  
+  # Weight of TF-IDF score in total similarity (0.0 - 1.0; remaining belongs to embeddings)
+  tfidf_weight: 0.2
+
+# File and Directory Paths
+# ------------------------
+paths:
+  data_dir: "data"
+  cache_dir: "cache"
+  clean_data_file: "data/movies_clean.parquet"
+  embeddings_file: "cache/embeddings.npy"
+  metadata_file: "cache/metadata.json"
+

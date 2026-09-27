@@ -1,0 +1,35 @@
+﻿# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*.class
+
+# Testing & Caches
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Environments
+.env
+.venv
+env/
+venv/
+
+# Operating System & IDE
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Project Data and Large Cache Files
+data/*.parquet
+data/*.csv
+data/*.json
+cache/embeddings.npy
+cache/metadata.json
+cache/*
+!cache/.gitkeep
+!data/.gitkeep
+
+# Streamlit logs & config
+.streamlit/
